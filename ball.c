@@ -27,52 +27,52 @@ static bool handle_collision_ball_paddle(Ball* ball, Paddle* paddle) {
     
     Vec2 dif = vec2_sub(&ball_new, &ball_old);
     if (dif.x > 0) {
-        float minkowskiX = x - ball->radius / 2.0;
-        float penetration = ball_new.x - minkowskiX;
+        float minkowski_x = x - ball->radius / 2.0;
+        float penetration = ball_new.x - minkowski_x;
         float ratio = penetration / dif.x;
         float collisionY = ball_new.y - ratio * dif.y;
-        if (penetration > 0 && ball_old.x <= minkowskiX && collisionY >= y - ball->radius / 2 && collisionY <= y + h + ball->radius / 2) {
-            ball->position.x = minkowskiX - 1; 
+        if (penetration > 0 && ball_old.x <= minkowski_x && collisionY >= y - ball->radius / 2 && collisionY <= y + h + ball->radius / 2) {
+            ball->position.x = minkowski_x - 1; 
             ball->position.y = collisionY;
             ball->velocity.x = -fabs(ball->velocity.x);
             return true;
         }
     }
     if (dif.x < 0) {
-        float minkowskiX = x + w + ball->radius / 2.0;
-        float penetration = minkowskiX - ball_new.x;
+        float minkowski_x = x + w + ball->radius / 2.0;
+        float penetration = minkowski_x - ball_new.x;
         float ratio = penetration / dif.x;
         float collisionY = ball_new.y + ratio * dif.y;
-        if (penetration > 0 && ball_old.x >= minkowskiX && collisionY >= y - ball->radius / 2 && collisionY <= y + h + ball->radius / 2) 
+        if (penetration > 0 && ball_old.x >= minkowski_x && collisionY >= y - ball->radius / 2 && collisionY <= y + h + ball->radius / 2) 
         {
-            ball->position.x = minkowskiX + 1; 
+            ball->position.x = minkowski_x + 1; 
             ball->position.y = collisionY;
             ball->velocity.x = fabs(ball->velocity.x);
             return true;
         }        
     }
     if (dif.y > 0) {
-        float minkowskiY = y - ball->radius / 2.0;
-        float penetration = ball_new.y - minkowskiY;
+        float minkowski_y = y - ball->radius / 2.0;
+        float penetration = ball_new.y - minkowski_y;
         float ratio = penetration / dif.y;
         float collisionX = ball_new.x - ratio * dif.x;
-        if (penetration > 0 && ball_old.y <= minkowskiY && collisionX >= x - ball->radius / 2 && collisionX <= x + w + ball->radius / 2) 
+        if (penetration > 0 && ball_old.y <= minkowski_y && collisionX >= x - ball->radius / 2 && collisionX <= x + w + ball->radius / 2) 
         {
             ball->position.x = collisionX; 
-            ball->position.y = minkowskiY - 1;
+            ball->position.y = minkowski_y - 1;
             ball->velocity.y = -fabs(ball->velocity.y);
             return true;
         }
     }
     if (dif.y < 0) {
-        float minkowskiY = y + h + ball->radius / 2.0;
-        float penetration = minkowskiY - ball_new.y;
+        float minkowski_y = y + h + ball->radius / 2.0;
+        float penetration = minkowski_y - ball_new.y;
         float ratio = penetration / dif.y;
         float collisionX = ball_new.x + ratio * dif.x;
-        if (penetration > 0 && ball_old.y >= minkowskiY && collisionX >= x - ball->radius / 2 && collisionX <= x + w + ball->radius / 2) 
+        if (penetration > 0 && ball_old.y >= minkowski_y && collisionX >= x - ball->radius / 2 && collisionX <= x + w + ball->radius / 2) 
         {
             ball->position.x = collisionX; 
-            ball->position.y = minkowskiY + 1;
+            ball->position.y = minkowski_y + 1;
             ball->velocity.y = fabs(ball->velocity.y);
             return true;
         }                

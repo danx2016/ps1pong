@@ -2,9 +2,8 @@
 #include <string.h>
 #include <libetc.h>
 
-#include "third_party/nugget/modplayer/modplayer.h"
-
 #include "gfx.h"
+#include "music_player.h"
 #include "sfx.h"
 #include "controller.h"
 #include "pong.h"
@@ -20,30 +19,6 @@ static Paddle paddle_right;
 
 static uint32_t wait_frames_count;
 
-static bool mod_play_paused = false;
-
-void mod_play_next_sample()
-{
-    if (!mod_play_paused)
-    {
-        MOD_Poll();
-    }
-}
-
-void mod_play_pause()
-{
-    mod_play_paused = true;
-    sfx_silence(0);
-    sfx_silence(1);
-    sfx_silence(2);
-    sfx_silence(3);
-}
-
-void mod_play_resume()
-{
-    mod_play_paused = false;
-}
-
 void pong_init()
 {
     gfx_init();
@@ -52,9 +27,8 @@ void pong_init()
     game_state = TITLE;
     win_paddle = 0;
     // init audio
-    MOD_Load((struct MODFileFormat*) _binary_music_hit_start);
-    MOD_SetMusicVolume(8000);
-    VSyncCallback(mod_play_next_sample);
+    music_play_init();
+    VSyncCallback(music_play_next_sample);
     sfx_init();    
 }
 
@@ -74,14 +48,14 @@ static void check_game_over()
         wait_frames_count = 60;
         game_state = GAME_OVER;
         win_paddle = 2;
-        mod_play_pause();
+        music_play_pause();
     }
     if (ball.position.x > gfx_screen_width + BALL_RADIUS)
     {
         wait_frames_count = 60;
         game_state = GAME_OVER;
         win_paddle = 1;
-        mod_play_pause();
+        music_play_pause();
     }
 }
 
@@ -116,7 +90,7 @@ void pong_fixed_update()
                 wait_frames_count = 60;
                 game_state = TITLE;
                 win_paddle = 0;
-                mod_play_resume();
+                music_play_resume();
             }
             break;
     }

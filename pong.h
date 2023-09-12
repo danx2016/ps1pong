@@ -6,11 +6,6 @@
 #include "ball.h"
 #include "paddle.h"
 
-// mod music data
-extern const uint8_t _binary_music_hit_start[];
-extern const uint8_t _binary_music_hit_end[];
-extern const uint8_t _binary_music_hit_size[];
-
 typedef enum { TITLE, PLAYING, GAME_OVER } GAME_STATE;
 extern GAME_STATE game_state;
 extern uint8_t win_paddle;

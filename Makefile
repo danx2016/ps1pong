@@ -6,6 +6,7 @@ SRCS = third_party/nugget/common/crt0/crt0.s \
 main.c \
 vec2.c \
 gfx.c \
+music_player.c \
 sfx.c \
 controller.c \
 pong.c \
