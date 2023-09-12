@@ -2,7 +2,7 @@
 
 Very simple pong implementation for PS1 using MIPS toolchain + Nugget + Psy-Q Dev Kit.
 
-<b>warning:</b> this project uses <b>float<b> type which is strongly discouraged for consoles like PS1 according to the most experienced people in the PSX.Dev. The recommendation is to use <b>fixed point math</b> insted.
+<b>warning:</b> this project uses <b>float</b> type which is strongly discouraged for consoles like PS1 according to the most experienced people in the PSX.Dev. The recommendation is to use <b>fixed point math</b> insted.
 
 ## How to Build ##
 
