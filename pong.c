@@ -34,7 +34,7 @@ void pong_init()
 
 void pong_start_game(bool is_left_cpu, bool is_right_cpu)
 {
-    ball = ball_init(BALL_RADIUS, gfx_screen_width / 2, gfx_screen_height / 2);
+    ball = ball_init(BALL_DIAMETER, gfx_screen_width / 2, gfx_screen_height / 2);
     paddle_left = paddle_init(PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_WIDTH * 2, gfx_screen_height / 2, 0, is_left_cpu);
     paddle_right = paddle_init(PADDLE_WIDTH, PADDLE_HEIGHT, gfx_screen_width - PADDLE_WIDTH * 2 - 1, gfx_screen_height / 2, 1, is_right_cpu);
     game_state = PLAYING;
@@ -43,14 +43,14 @@ void pong_start_game(bool is_left_cpu, bool is_right_cpu)
 static void check_game_over()
 {
     // check game over
-    if (ball.position.x < -BALL_RADIUS)
+    if (ball.position.x < -BALL_DIAMETER)
     {
         wait_frames_count = 60;
         game_state = GAME_OVER;
         win_paddle = 2;
         music_play_pause();
     }
-    if (ball.position.x > gfx_screen_width + BALL_RADIUS)
+    if (ball.position.x > gfx_screen_width + BALL_DIAMETER)
     {
         wait_frames_count = 60;
         game_state = GAME_OVER;
@@ -126,10 +126,10 @@ static void pong_draw_paddles()
 
 static void pong_draw_ball()
 {
-    uint16_t bx = (uint16_t) ball.position.x - ball.radius / 2;
-    uint16_t by = (uint16_t) ball.position.y - ball.radius / 2;
-    uint16_t bw = (uint16_t) ball.radius;
-    uint16_t bh = (uint16_t) ball.radius;
+    uint16_t bx = (uint16_t) ball.position.x - ball.diameter / 2;
+    uint16_t by = (uint16_t) ball.position.y - ball.diameter / 2;
+    uint16_t bw = (uint16_t) ball.diameter;
+    uint16_t bh = (uint16_t) ball.diameter;
     gfx_fill_rect(bx, by, bw, bh);
 }
 

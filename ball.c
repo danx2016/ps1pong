@@ -6,10 +6,10 @@
 #include "sfx.h"
 #include "ball.h"
 
-Ball ball_init(uint16_t radius, float px, float py)
+Ball ball_init(uint16_t diameter, float px, float py)
 {
     Ball ball;
-    ball.radius = radius;
+    ball.diameter = diameter;
     ball.position = vec2_init(px, py);
     ball.velocity = vec2_init(-1, 0);
     ball.speed = BALL_INITIAL_SPEED;
@@ -27,11 +27,11 @@ static bool handle_collision_ball_paddle(Ball* ball, Paddle* paddle) {
     
     Vec2 dif = vec2_sub(&ball_new, &ball_old);
     if (dif.x > 0) {
-        float minkowski_x = x - ball->radius / 2.0;
+        float minkowski_x = x - ball->diameter / 2.0;
         float penetration = ball_new.x - minkowski_x;
         float ratio = penetration / dif.x;
         float collisionY = ball_new.y - ratio * dif.y;
-        if (penetration > 0 && ball_old.x <= minkowski_x && collisionY >= y - ball->radius / 2 && collisionY <= y + h + ball->radius / 2) {
+        if (penetration > 0 && ball_old.x <= minkowski_x && collisionY >= y - ball->diameter / 2 && collisionY <= y + h + ball->diameter / 2) {
             ball->position.x = minkowski_x - 1; 
             ball->position.y = collisionY;
             ball->velocity.x = -fabs(ball->velocity.x);
@@ -39,11 +39,11 @@ static bool handle_collision_ball_paddle(Ball* ball, Paddle* paddle) {
         }
     }
     if (dif.x < 0) {
-        float minkowski_x = x + w + ball->radius / 2.0;
+        float minkowski_x = x + w + ball->diameter / 2.0;
         float penetration = minkowski_x - ball_new.x;
         float ratio = penetration / dif.x;
         float collisionY = ball_new.y + ratio * dif.y;
-        if (penetration > 0 && ball_old.x >= minkowski_x && collisionY >= y - ball->radius / 2 && collisionY <= y + h + ball->radius / 2) 
+        if (penetration > 0 && ball_old.x >= minkowski_x && collisionY >= y - ball->diameter / 2 && collisionY <= y + h + ball->diameter / 2) 
         {
             ball->position.x = minkowski_x + 1; 
             ball->position.y = collisionY;
@@ -52,11 +52,11 @@ static bool handle_collision_ball_paddle(Ball* ball, Paddle* paddle) {
         }        
     }
     if (dif.y > 0) {
-        float minkowski_y = y - ball->radius / 2.0;
+        float minkowski_y = y - ball->diameter / 2.0;
         float penetration = ball_new.y - minkowski_y;
         float ratio = penetration / dif.y;
         float collisionX = ball_new.x - ratio * dif.x;
-        if (penetration > 0 && ball_old.y <= minkowski_y && collisionX >= x - ball->radius / 2 && collisionX <= x + w + ball->radius / 2) 
+        if (penetration > 0 && ball_old.y <= minkowski_y && collisionX >= x - ball->diameter / 2 && collisionX <= x + w + ball->diameter / 2) 
         {
             ball->position.x = collisionX; 
             ball->position.y = minkowski_y - 1;
@@ -65,11 +65,11 @@ static bool handle_collision_ball_paddle(Ball* ball, Paddle* paddle) {
         }
     }
     if (dif.y < 0) {
-        float minkowski_y = y + h + ball->radius / 2.0;
+        float minkowski_y = y + h + ball->diameter / 2.0;
         float penetration = minkowski_y - ball_new.y;
         float ratio = penetration / dif.y;
         float collisionX = ball_new.x + ratio * dif.x;
-        if (penetration > 0 && ball_old.y >= minkowski_y && collisionX >= x - ball->radius / 2 && collisionX <= x + w + ball->radius / 2) 
+        if (penetration > 0 && ball_old.y >= minkowski_y && collisionX >= x - ball->diameter / 2 && collisionX <= x + w + ball->diameter / 2) 
         {
             ball->position.x = collisionX; 
             ball->position.y = minkowski_y + 1;
@@ -107,7 +107,7 @@ void ball_fixed_update(Ball *ball, Paddle *paddle_left, Paddle *paddle_right)
         change_ball_direction_little_randomly(ball);
     }
    
-    float wall_left_x = paddle_left->position.x - PADDLE_WIDTH / 2 - 2 + BALL_RADIUS / 2 - (10 - 2 * paddle_left->walls_count);
+    float wall_left_x = paddle_left->position.x - PADDLE_WIDTH / 2 - 2 + BALL_DIAMETER / 2 - (10 - 2 * paddle_left->walls_count);
     if (ball->position.x <= wall_left_x && ball->velocity.x < 0 && paddle_left->walls_count > 0) 
     {
         paddle_left->walls_count--;
@@ -115,7 +115,7 @@ void ball_fixed_update(Ball *ball, Paddle *paddle_left, Paddle *paddle_right)
         sfx_play(SOUND_PADDLE_WALL);
     }
 
-    float wall_right_x = paddle_right->position.x + PADDLE_WIDTH / 2 + 2 - BALL_RADIUS / 2 + (12 - 2 * paddle_right->walls_count);
+    float wall_right_x = paddle_right->position.x + PADDLE_WIDTH / 2 + 2 - BALL_DIAMETER / 2 + (12 - 2 * paddle_right->walls_count);
     if (ball->position.x >= wall_right_x && ball->velocity.x > 0 && paddle_right->walls_count > 0) 
     {
         paddle_right->walls_count--;

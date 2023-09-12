@@ -26,8 +26,8 @@ static bool separate_ball_paddle(Ball* ball, Paddle* paddle)
     do
     {
         Vec2 dir = vec2_sub(&ball->position, &paddle->position);
-        ch = fabs(dir.x) < PADDLE_WIDTH / 2 + BALL_RADIUS / 2;
-        cv = fabs(dir.y) < PADDLE_HEIGHT / 2 + BALL_RADIUS / 2;
+        ch = fabs(dir.x) < PADDLE_WIDTH / 2 + BALL_DIAMETER / 2;
+        cv = fabs(dir.y) < PADDLE_HEIGHT / 2 + BALL_DIAMETER / 2;
         if (ch && cv)
         {
             dir = vec2_normalize(&dir);
