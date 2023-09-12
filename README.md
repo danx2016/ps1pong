@@ -17,3 +17,11 @@ git clone --recurse-submodules https://github.com/danx2016/ps1pong.git
 make
 ```
 
+
+## Special Thanks To ##
+
+* @Nicolas Noble
+* @spicyjpeg
+* @Lily
+* @poly
+* and all people from PSX.Dev
