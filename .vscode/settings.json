@@ -1,0 +1,28 @@
+{
+    "files.associations": {
+        "libmath.h": "c",
+        "paddle.h": "c",
+        "stdbool.h": "c",
+        "controller.h": "c",
+        "libgpu.h": "c",
+        "libetc.h": "c",
+        "gfx.h": "c",
+        "pong.h": "c",
+        "ball.h": "c",
+        "vec2.h": "c",
+        "compare": "c",
+        "cstdint": "c",
+        "cstdlib": "c",
+        "stdint.h": "c",
+        "stdint-gcc.h": "c",
+        "stdlib.h": "c",
+        "stddef.h": "c",
+        "convert.h": "c",
+        "malloc.h": "c",
+        "qsort.h": "c",
+        "abs.h": "c",
+        "string.h": "c",
+        "strings.h": "c",
+        "music.h": "c"
+    }
+}
