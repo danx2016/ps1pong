@@ -1,6 +1,6 @@
 # PS1 Pong 6
 
-Very simple pong implementation for PS1 using MIPS toolchain + Nugget.
+Very simple pong implementation for PS1 using MIPS toolchain + Nugget + Psy-Q Dev Kit.
 
 
 ## How to Build ##
